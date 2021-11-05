@@ -1,6 +1,7 @@
 package com.LuSrodri.LuVendas.services;
 
 import java.util.List;
+import java.util.stream.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class SellerService {
 	
 	public List<SellerDto> findAll(){
 		List<Seller> result = repo.findAll();
-		return result.stream().map(x -> new SellerDto(x)).toList();
+		Stream<SellerDto> stream = result.stream().map(x -> new SellerDto(x));
+		List<SellerDto> list = stream.toList();
+		return list;
 	}
 }
