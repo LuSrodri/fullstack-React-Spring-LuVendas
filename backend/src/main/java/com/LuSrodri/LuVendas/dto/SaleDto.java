@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import com.LuSrodri.LuVendas.entities.Sale;
 
-public class SeleDto implements Serializable {
+public class SaleDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -16,10 +16,10 @@ public class SeleDto implements Serializable {
 	
 	private SellerDto seller;
 	
-	public SeleDto() {
+	public SaleDto() {
 	}
 
-	public SeleDto(Long id, Integer visited, Integer deals, Double amount, LocalDate date, SellerDto seller) {
+	public SaleDto(Long id, Integer visited, Integer deals, Double amount, LocalDate date, SellerDto seller) {
 		this.id = id;
 		this.visited = visited;
 		this.deals = deals;
@@ -28,7 +28,7 @@ public class SeleDto implements Serializable {
 		this.seller = seller;
 	}
 	
-	public SeleDto(Sale entity ) {
+	public SaleDto(Sale entity ) {
 		id = entity.getId();
 		visited = entity.getVisited();
 		deals = entity.getDeals();
