@@ -1,12 +1,9 @@
 package com.LuSrodri.LuVendas.services;
 
+
+
 import java.util.List;
-import java.util.*;
 import java.util.stream.Stream;
-import java.util.stream.Collectors;
-import java.util.stream.*;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toCollection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
