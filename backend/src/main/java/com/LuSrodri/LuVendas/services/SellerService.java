@@ -3,6 +3,7 @@ package com.LuSrodri.LuVendas.services;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class SellerService {
 	public List<SellerDto> findAll(){
 		List<Seller> result = repo.findAll();
 		Stream<SellerDto> stream = result.stream().map(x -> new SellerDto(x));
-		List<SellerDto> list = stream.toList();
+		List<SellerDto> list = stream.collect(Collectors.toList());
 		return list;
 	}
 }
