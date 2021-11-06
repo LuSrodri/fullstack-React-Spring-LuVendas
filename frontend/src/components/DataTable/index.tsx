@@ -1,4 +1,5 @@
 import axios from "axios";
+import Pagination from "components/Pagination";
 import { useEffect, useState } from "react";
 import { SalePage } from "types/sales";
 import { formatLocalDate } from "utils/format";
@@ -6,6 +7,12 @@ import { BASE_URL } from "utils/requests";
 
 
 function DataTable() {
+
+    const [activePage, setActivePage] = useState(0);
+
+    const changePage = (index: number) => {
+        setActivePage(index);
+    }
 
     const [page, setPage] = useState<SalePage>({
         first: true,
@@ -16,40 +23,42 @@ function DataTable() {
     });
 
     useEffect(() => {
-        axios.get(BASE_URL + "/sales?page=0&size=20&sort=date,desc")
+        axios.get(BASE_URL + "/sales?page=" + activePage + "&size=20&sort=date,desc")
             .then(response => {
                 setPage(response.data);
             })
-    }, []);
+    }, [activePage]);
 
     return (
-        <div className="table-responsive">
-            <table className="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Vendedor</th>
-                        <th>Clientes visitados</th>
-                        <th>Negócios fechados</th>
-                        <th>Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        page.content?.map(x => (
-                            <tr key={x.id}>
-                                <td>{formatLocalDate(x.date,"dd/MM/yyyy")}</td>
-                                <td>{x.seller.name}</td>
-                                <td>{x.visited}</td>
-                                <td>{x.deals}</td>
-                                <td>{x.amount.toFixed(2)}</td>
-                            </tr>
-                        ))}
+        <>
+            <Pagination page={page} onPageChange={changePage}></Pagination>
+            <div className="table-responsive">
+                <table className="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Vendedor</th>
+                            <th>Clientes visitados</th>
+                            <th>Negócios fechados</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            page.content?.map(x => (
+                                <tr key={x.id}>
+                                    <td>{formatLocalDate(x.date, "dd/MM/yyyy")}</td>
+                                    <td>{x.seller.name}</td>
+                                    <td>{x.visited}</td>
+                                    <td>{x.deals}</td>
+                                    <td>{x.amount.toFixed(2)}</td>
+                                </tr>
+                            ))}
 
-                </tbody>
-            </table>
-        </div>
-
+                    </tbody>
+                </table>
+            </div>
+        </>
     );
 }
 
